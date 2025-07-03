@@ -6,6 +6,8 @@ from constants import *
 
 def main():
     pygame.init()
+    fps = pygame.time.Clock()
+    dt = 0
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     running = True
     while running:
@@ -14,6 +16,8 @@ def main():
                 return
         screen.fill("black")
         pygame.display.flip()
+        tick = fps.tick(60)
+        dt = tick / 1000
 
 
 if __name__ == "__main__":
