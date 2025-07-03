@@ -26,7 +26,7 @@ class Player(CircleShape):
     
     #This will draw the player which is a triangle
     def draw(self, screen):
-        pygame.draw.polygon(screen, "white", self.triangle(), 2 )
+        pygame.draw.polygon(screen, "red", self.triangle(), 2 )
     
     #This will rotate the triangle   
     def rotate(self, dt):
@@ -66,6 +66,9 @@ class Player(CircleShape):
         self.timer = PLAYER_SHOOT_COOLDOWN
         
         self.shots_group.add(shot)
+        
+
+        
             
         
         
