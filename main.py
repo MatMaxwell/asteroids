@@ -15,6 +15,13 @@ from button import *
 #Initialize the game engine
 pygame.init()
 
+#For the music
+pygame.mixer.init()
+pygame.mixer.music.load("assets/Music.mp3")
+pygame.mixer.music.set_volume(0.5)  # Optional: 0.0 to 1.0
+pygame.mixer.music.play(-1)         # -1 means loop forever
+
+
 #Set up the screen varibale
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
@@ -97,7 +104,7 @@ def play():
         pygame.display.flip()
         
         #FPS and Delta Time
-        tick = fps.tick(144)
+        tick = fps.tick(60)
         dt = tick / 1000
 
 def get_font(size): 
