@@ -14,6 +14,17 @@ class Player(CircleShape):
         self.timer = 0
         self.shots_group = shots_group
         
+        # Load the ship image
+        self.original_image = pygame.image.load("assets/ShipFull.png").convert_alpha()
+
+        scale_factor = 4
+        diameter = int(self.radius * scale_factor)
+        self.original_image = pygame.transform.scale(self.original_image, (diameter, diameter))
+
+        # For rotating
+        self.image = self.original_image
+        self.rect = self.image.get_rect(center=self.position)
+        
     
     #Class to draw a triangle
     def triangle(self):
@@ -24,9 +35,13 @@ class Player(CircleShape):
         c = self.position - forward * self.radius + right
         return [a, b, c]
     
-    #This will draw the player which is a triangle
     def draw(self, screen):
-        pygame.draw.polygon(screen, "red", self.triangle(), 2 )
+        # Rotate the image
+        self.image = pygame.transform.rotate(self.original_image, -self.rotation + 180)
+        # Update rect to stay centered at self.position
+        self.rect = self.image.get_rect(center=self.position)
+        # Draw the image
+        screen.blit(self.image, self.rect)
     
     #This will rotate the triangle   
     def rotate(self, dt):

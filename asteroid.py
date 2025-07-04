@@ -4,16 +4,36 @@ from circleshape import *
 from constants import *
 
 class Asteroid(CircleShape):
-    #Initialize as a Circle shape
+    # Initialize as a Circle shape
     def __init__(self, x, y, radius):
         super().__init__(x, y, radius)
-        
+
+        # Load and scale image
+        self.original_image = pygame.image.load("assets/Asteroid.png").convert_alpha()
+
+        scale_factor = 3
+        diameter = int(self.radius * 2 * scale_factor)
+        self.original_image = pygame.transform.scale(self.original_image, (diameter, diameter))
+
+        # Image used for rendering (rotated if needed)
+        self.image = self.original_image
+        self.rect = self.image.get_rect(center=self.position)
+
+        self.angle = random.uniform(0, 360)
+        self.spin = random.uniform(-60, 60)
+
     def draw(self, screen):
-        pygame.draw.circle(screen,"green", self.position, self.radius, 2)
-        
+        # Update rect center each frame in case of movement
+        self.rect = self.image.get_rect(center=self.position)
+        screen.blit(self.image, self.rect)
+
     def update(self, dt):
         self.position += self.velocity * dt
-    
+
+        # Rotate image
+        #self.angle += self.spin * dt
+        #self.image = pygame.transform.rotate(self.original_image, self.angle)
+
     def split(self):
         self.kill()  # Remove the current (large) asteroid
 
@@ -40,5 +60,4 @@ class Asteroid(CircleShape):
 
         # You must add these new asteroids to your game's asteroid group manually
         return [asteroid1, asteroid2]
-        
         
